@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Power BI Star Schema — ER Diagram</title>
+<style>
+body { font-family: sans-serif; background: #f9f9f9; padding: 20px; }
+#erd svg { width: 100%; }
+#erd svg.erDiagram .divider path { stroke-opacity: 0.4; }
+#erd svg.erDiagram .row-rect-odd path,
+#erd svg.erDiagram .row-rect-odd rect,
+#erd svg.erDiagram .row-rect-even path,
+#erd svg.erDiagram .row-rect-even rect { stroke: none !important; }
+h2 { font-size: 18px; color: #333; margin-bottom: 4px; }
+p { font-size: 13px; color: #666; margin-bottom: 16px; }
+.note { background: #fff3cd; border-left: 4px solid #ffc107; padding: 10px 14px; font-size: 13px; border-radius: 4px; margin-top: 16px; }
+</style>
+</head>
+<body>
+<h2>Power BI Star Schema — Verified from Model Screenshot</h2>
+<p>8 relationships · All Many-to-One · Single filter direction · DimShift connects only to MACHINE_SHIFT_KPIS (not directly to FACT)</p>
+<div id="erd"></div>
+<div class="note">
+  <strong>Note:</strong> <code>shift</code> column exists in FACT_PRODUCTION but has <strong>no direct DimShift relationship</strong>.
+  DimShift connects via MACHINE_SHIFT_KPIS → DimMachine → FACT_PRODUCTION (indirect path).
+  This is a known model design decision — machine_shift_kpis does not respond to the year slicer.
+</div>
+<script type="module">
+import mermaid from 'https://esm.sh/mermaid@11/dist/mermaid.esm.min.mjs';
+await document.fonts.ready;
+mermaid.initialize({
+  startOnLoad: false,
+  theme: 'base',
+  fontFamily: 'sans-serif',
+  themeVariables: {
+    fontSize: '13px',
+    lineColor: '#73726c',
+    textColor: '#3d3d3a',
+    primaryColor: '#E6F1FB',
+    primaryBorderColor: '#185FA5',
+    primaryTextColor: '#0C447C',
+    secondaryColor: '#EAF3DE',
+    tertiaryColor: '#EEEDFE',
+  },
+});
+const src = `erDiagram
+
+  FACT_PRODUCTION {
+    bigint production_id PK
+    timestamp date FK
+    bigint machine_id FK
+    string product_type FK
+    string defect_type FK
+    string shift "no dim relationship"
+    double units_produced
+    double defects
+    double scrap_rate
+    double rework_hours
+    double down_time_hours
+    double maintenance_hours
+    double quality_checks_failed
+    double energy_consumption_kwh
+    double labour_cost_per_hour
+    bigint is_anomaly
+    double anomaly_score
+    string machine_category
+  }
+
+  DIM_DATE {
+    timestamp date PK
+    bigint month_number
+    date month_start
+    string month_year
+    bigint year
+  }
+
+  DIM_MACHINE {
+    bigint machine_id PK
+  }
+
+  DIM_PRODUCT {
+    string product_type PK
+  }
+
+  DIM_DEFECT {
+    string defect_type PK
+  }
+
+  DIM_SHIFT {
+    string shift PK
+  }
+
+  DAILY_KPIS {
+    timestamp date FK
+    bigint year
+    bigint month
+    bigint day
+    double total_units
+    double total_defects
+    double avg_scrap_rate
+    double total_downtime_hours
+    double total_rework_hours
+    double total_maintenance_hours
+    double total_energy_kwh
+    double defect_rate
+  }
+
+  MACHINE_SHIFT_KPIS {
+    bigint machine_id FK
+    string shift FK
+    double total_units
+    double total_defects
+    double avg_scrap_rate
+    double total_downtime_hours
+    double total_rework_hours
+    double avg_quality_checks_failed
+    string machine_category
+    double defect_rate
+  }
+
+  MONTHLY_PRODUCT_KPIS {
+    bigint year
+    bigint month
+    string product_type FK
+    double total_units
+    double total_defects
+    double avg_scrap_rate
+    double total_downtime_hours
+    double total_rework_hours
+    double avg_production_time_hours
+    double defect_rate
+  }
+
+  DIM_DATE ||--o{ FACT_PRODUCTION : "date (1 to many)"
+  DIM_DATE ||--o{ DAILY_KPIS : "date (1 to many)"
+  DIM_MACHINE ||--o{ FACT_PRODUCTION : "machine_id (1 to many)"
+  DIM_MACHINE ||--o{ MACHINE_SHIFT_KPIS : "machine_id (1 to 3 shifts)"
+  DIM_PRODUCT ||--o{ FACT_PRODUCTION : "product_type (1 to many)"
+  DIM_PRODUCT ||--o{ MONTHLY_PRODUCT_KPIS : "product_type (1 to many)"
+  DIM_DEFECT ||--o{ FACT_PRODUCTION : "defect_type (1 to many)"
+  DIM_SHIFT ||--o{ MACHINE_SHIFT_KPIS : "shift (1 to 20 machines)"
+`;
+const { svg } = await mermaid.render('erd-svg', src);
+document.getElementById('erd').innerHTML = svg;
+document.querySelectorAll('#erd svg.erDiagram .node').forEach(node => {
+  const firstPath = node.querySelector('path[d]');
+  if (!firstPath) return;
+  const d = firstPath.getAttribute('d');
+  const nums = d.match(/-?[\d.]+/g)?.map(Number);
+  if (!nums || nums.length < 8) return;
+  const xs = [nums[0], nums[2], nums[4], nums[6]];
+  const ys = [nums[1], nums[3], nums[5], nums[7]];
+  const x = Math.min(...xs), y = Math.min(...ys);
+  const w = Math.max(...xs) - x, h = Math.max(...ys) - y;
+  const rect = document.createElementNS('http://www.w3.org/2000/svg','rect');
+  rect.setAttribute('x',x); rect.setAttribute('y',y);
+  rect.setAttribute('width',w); rect.setAttribute('height',h);
+  rect.setAttribute('rx','8');
+  for (const a of ['fill','stroke','stroke-width','class','style']) {
+    if (firstPath.hasAttribute(a)) rect.setAttribute(a, firstPath.getAttribute(a));
+  }
+  firstPath.replaceWith(rect);
+});
+document.querySelectorAll('#erd svg.erDiagram .row-rect-odd path, #erd svg.erDiagram .row-rect-even path').forEach(p => p.setAttribute('stroke','none'));
+</script>
+</body>
+</html>

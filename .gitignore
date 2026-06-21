@@ -1,0 +1,44 @@
+# ── Data directories ──────────────────────────────────────────
+# Raw, cleaned, and Gold data lives in AWS S3 — not in this repo
+data/
+
+# ── Jupyter Notebook checkpoints ──────────────────────────────
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+
+# ── Python ────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# ── Virtual environments ───────────────────────────────────────
+.venv/
+venv/
+env/
+.env
+
+# ── AWS credentials (NEVER commit these) ──────────────────────
+.aws/
+credentials
+*.pem
+*.key
+
+# ── OS files ──────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── IDE / editor ──────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ── Logs ──────────────────────────────────────────────────────
+*.log
+logs/
