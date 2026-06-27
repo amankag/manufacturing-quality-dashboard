@@ -4,6 +4,8 @@
 
 A production-grade data engineering pipeline that ingests raw manufacturing data, applies systematic cleaning and ML enrichment, and delivers analytical Gold tables to a Power BI dashboard via AWS Athena.
 
+🌐 **[View the live portfolio site →](https://amankag.github.io/manufacturing-quality-dashboard/Website/)**
+
 ---
 
 ## Project Overview
