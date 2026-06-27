@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aman Kag — Manufacturing Quality Analytics</title>
+<meta property="og:title" content="Aman Kag — Manufacturing Quality Analytics">
+<meta property="og:description" content="An end-to-end data pipeline portfolio. Raw factory data to a live Power BI dashboard. Spin the globe, see the numbers.">
+<meta property="og:image" content="https://amankag.github.io/manufacturing-quality-dashboard/website/screenshots/DB1PIC01.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://amankag.github.io/manufacturing-quality-dashboard/website/">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-name" href="#">Aman Kag</a>
+    <div class="nav-links">
+      <a href="#globe">Globe</a>
+      <a href="#numbers">Numbers</a>
+      <a href="#pipeline">Pipeline</a>
+      <a href="#findings">Findings</a>
+      <a href="https://github.com/amankag/manufacturing-quality-dashboard" target="_blank" class="nav-gh">GitHub ↗</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-pre">Data Engineering · Analytics · Portfolio 2026</p>
+  <h1 class="hero-h1">Most projects <span class="muted">live in a notebook.</span><br>This one ships.</h1>
+  <p class="hero-sub">An end-to-end manufacturing quality pipeline. From raw data to a live dashboard that tells a factory exactly what to fix first.</p>
+  <div class="hero-links">
+    <a href="https://github.com/amankag/manufacturing-quality-dashboard" target="_blank" class="hl-blue">Explore on GitHub</a>
+    <a href="#globe" class="hl-dark">See it in motion</a>
+  </div>
+</section>
+
+<!-- GLOBE -->
+<section class="globe-section" id="globe">
+  <div class="globe-intro">
+    <p class="gi-pre">One language, every factory</p>
+    <h2 class="gi-title">Every plant on Earth fights the <em>same battle.</em></h2>
+    <p class="gi-sub">Defects. Downtime. Waste. From Sydney to São Paulo, quality speaks one language.<br><strong>Spin the globe. Watch the numbers this project tracks.</strong></p>
+  </div>
+  <div class="globe-stage">
+    <canvas id="c"></canvas>
+    <div class="loader" id="loader"><div class="loader-ring"></div><div class="loader-txt">Loading Earth</div></div>
+    <div class="geo-card" id="geoCard" style="opacity:0;">
+      <div class="gc-icon" id="gcIcon">📊</div>
+      <div class="gc-label" id="gcLabel">Metric</div>
+      <div class="gc-val" id="gcVal">—</div>
+      <div class="gc-desc" id="gcDesc">—</div>
+    </div>
+    <div class="drag-hint"><div class="drag-ico">↻</div> Drag to rotate</div>
+  </div>
+ 
+</section>
+
+<!-- QUOTE -->
+<section class="quote-wrap sr">
+  <p class="quote-text">"The details are not the details.<br><strong>They make the design."</strong></p>
+  <p class="quote-attr">— Charles Eames</p>
+</section>
+
+<!-- NUMBERS -->
+<section class="ws" id="numbers">
+  <div class="ws-inner">
+    <span class="eyebrow teal sr">By the numbers</span>
+    <h2 class="ws-h2 sr">Five years of production.<br>One source of truth.</h2>
+    <p class="ws-sub sr">Thousands of raw records, cleaned and enriched with machine learning, then served to a live dashboard the moment a question is asked.</p>
+    <div class="kpi-grid stagger">
+      <div class="kpi-cell"><div class="kpi-n">231,373</div><div class="kpi-l">Units Produced</div><div class="kpi-c dim">2021 – 2025</div></div>
+      <div class="kpi-cell"><div class="kpi-n r">3.62%</div><div class="kpi-l">Defect Rate</div><div class="kpi-c warn">Target ≤ 3.50%</div></div>
+      <div class="kpi-cell"><div class="kpi-n">36,156</div><div class="kpi-l">DPMO</div><div class="kpi-c dim">Defects per million</div></div>
+      <div class="kpi-cell"><div class="kpi-n t">3.30σ</div><div class="kpi-l">Sigma Level</div><div class="kpi-c good">Industry avg 3 – 4σ</div></div>
+      <div class="kpi-cell"><div class="kpi-n">96.38%</div><div class="kpi-l">Process Yield</div><div class="kpi-c good">Best year 96.56%</div></div>
+      <div class="kpi-cell"><div class="kpi-n b">60</div><div class="kpi-l">Anomalies Caught</div><div class="kpi-c good">Found by machine learning</div></div>
+    </div>
+    <div class="browser sr-scale">
+      <div class="b-bar"><div class="bd r"></div><div class="bd y"></div><div class="bd g"></div><div class="b-url">Manufacturing Quality Dashboard · Power BI · AWS Athena</div></div>
+      <div class="b-screen">
+        <div class="shots">
+          <img class="shot active" src="screenshots/DB1PIC01.png" alt="Production Quality Dashboard" loading="lazy">
+          <img class="shot" src="screenshots/DB2PIC01.jpeg" alt="Six Sigma Dashboard" loading="lazy">
+        </div>
+      </div>
+    </div>
+    <div class="shot-tabs">
+      <button class="shot-tab active" data-i="0">Production Quality</button>
+      <button class="shot-tab" data-i="1">Six Sigma</button>
+    </div>
+  </div>
+</section>
+
+<!-- PIPELINE -->
+<section class="ws alt" id="pipeline">
+  <div class="ws-inner">
+    <span class="eyebrow blue sr">How it's built</span>
+    <h2 class="ws-h2 sr">Raw data goes in.<br>Decisions come out.</h2>
+    <p class="ws-sub sr">A five-stage cloud pipeline that turns messy factory records into answers a manager can act on. Built to scale from thousands of rows to millions without changing a line.</p>
+    <div class="pipe-flow stagger">
+      <div class="pipe-node">
+        <span class="pn-chev">›</span>
+        <div class="pn-layer">Ingest</div>
+        <div class="pn-name">Bronze</div>
+        <div class="pn-desc">Raw factory data lands untouched, so you can always trace any number back to its origin. Nothing is lost, nothing is faked.</div>
+        <div class="pn-tag">AWS S3</div>
+      </div>
+      <div class="pipe-node">
+        <span class="pn-chev">›</span>
+        <div class="pn-layer">Clean</div>
+        <div class="pn-name">Silver</div>
+        <div class="pn-desc">Ten cleaning stages and eight quality gates remove what's broken and recover what's salvageable. Then machine learning flags what's unusual.</div>
+        <div class="pn-tag">Python · Pandas</div>
+      </div>
+      <div class="pipe-node">
+        <span class="pn-chev">›</span>
+        <div class="pn-layer">Aggregate</div>
+        <div class="pn-name">Gold</div>
+        <div class="pn-desc">Clean data is shaped into analytics-ready tables, compressed for speed, and updated only when something actually changes.</div>
+        <div class="pn-tag">Parquet · S3</div>
+      </div>
+      <div class="pipe-node">
+        <span class="pn-chev">›</span>
+        <div class="pn-layer">Query</div>
+        <div class="pn-name">Athena</div>
+        <div class="pn-desc">Ask any question in SQL and pay only for that answer. No servers running idle, no infrastructure to maintain.</div>
+        <div class="pn-tag">AWS Athena</div>
+      </div>
+      <div class="pipe-node">
+        <div class="pn-layer">Decide</div>
+        <div class="pn-name">Power BI</div>
+        <div class="pn-desc">A live dashboard any manager can read. Defect trends, machine health, and Six Sigma scores, all in one click.</div>
+        <div class="pn-tag">Power BI</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINDINGS -->
+<section class="ws" id="findings">
+  <div class="ws-inner">
+    <span class="eyebrow red sr">What the dashboard found</span>
+    <h2 class="ws-h2 sr">It doesn't just show data.<br>It points to the problem.</h2>
+    <p class="ws-sub wide sr">Anyone can build a chart. This dashboard surfaces the story hidden inside five years of data. The exact machine, the exact shift, the exact week things went wrong. </p>
+    <div class="fi-grid stagger">
+      <div class="fi-card" title="Machine 18, Swing shift, 2023 · 6.58% defect rate vs 3.62% plant average">
+        <div class="fi-num">01 · The hidden culprit</div>
+        <div class="fi-headline">It pinpointed <span class="hlr">two machines</span> quietly driving most of the defects.</div>
+        <div class="fi-detail">Buried in 3,000 production runs, two machines on one shift were failing far more than the rest. The dashboard found them. Imagine what it could find in yours.</div>
+        <div class="fi-stat">Detail: Machines 15 & 18 · Swing shift · 6.58% peak</div>
+      </div>
+      <div class="fi-card" title="2024 hit 3.44%, the only year under the 3.50% target. 2025 rose to 3.72%.">
+        <div class="fi-num">02 · The turning point</div>
+        <div class="fi-headline">It caught the <span class="hlr">exact year</span> quality slipped, and proved it was fixable.</div>
+        <div class="fi-detail">One year hit the target. The next reversed it. The dashboard shows precisely when and by how much, turning a vague worry into a clear action.</div>
+        <div class="fi-stat">Detail: 2024 best at 3.44% · 2025 worst at 3.72%</div>
+      </div>
+      <div class="fi-card" title="Scratch and Mislabel appear in the top 2 defect types across 4 of 5 years.">
+        <div class="fi-num">03 · The 80/20 rule</div>
+        <div class="fi-headline">It showed that fixing <span class="hl">two defect types</span> would move the needle most.</div>
+        <div class="fi-detail">Out of dozens of defect types, just two dominate year after year. Fix those first and get the biggest quality gain for the least effort.</div>
+        <div class="fi-stat">Detail: Scratch & Mislabel · top 2 in 4 of 5 years</div>
+      </div>
+      <div class="fi-card" title="Downtime rose from 532h (2022) to 576h (2025) while defects also rose.">
+        <div class="fi-num">04 · The costly pattern</div>
+        <div class="fi-headline">It revealed machines were being <span class="hlr">fixed late</span>, not maintained early.</div>
+        <div class="fi-detail">Downtime kept climbing while quality kept falling. The signature of reactive repairs. The fix: maintain before breakdown, not after.</div>
+        <div class="fi-stat">Detail: Downtime +8.3% · 2022 to 2025</div>
+      </div>
+      <div class="fi-card" title="Furniture defect rate spiked to ~10% in Aug–Sep 2023 before returning to baseline.">
+        <div class="fi-num">05 · The anomaly</div>
+        <div class="fi-headline">It flagged a <span class="hlr">sudden spike</span> most reports would have missed.</div>
+        <div class="fi-detail">For two months, one product line nearly tripled its defect rate, then recovered. The dashboard caught the blip, the kind of signal that saves money when spotted early.</div>
+        <div class="fi-stat">Detail: Furniture · ~10% peak · Aug–Sep 2023</div>
+      </div>
+      <div class="fi-card" title="Isolation Forest flagged 60 anomalous runs, preserved for investigation.">
+        <div class="fi-num">06 · The machine's eye</div>
+        <div class="fi-headline">It used <span class="hl">machine learning</span> to spot what humans overlook.</div>
+        <div class="fi-detail">An algorithm reviewed every run and flagged 60 that didn't fit the pattern, kept on record for engineers to investigate, never quietly deleted.</div>
+        <div class="fi-stat">Detail: Isolation Forest · 60 runs flagged</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HONEST -->
+<section class="honest-strip sr">
+  <div class="honest-inner">
+    <p class="honest-label">What makes this different</p>
+    <h2 class="honest-title">Every decision has a reason.<br>Every limitation has a name.</h2>
+    <p class="honest-body">Most projects show the finish line. This one shows the full race. The cleaning choices, the model trade-offs, the problems solved along the way.<br><br><strong>Built with patience. Documented with honesty.</strong></p>
+  </div>
+</section>
+
+<!-- ML -->
+<section class="ws alt">
+  <div class="ws-inner">
+    <span class="eyebrow teal sr">Machine learning</span>
+    <h2 class="ws-h2 sr">Not ML for the sake of it.<br>ML because the data demanded it.</h2>
+    <p class="ws-sub sr">Two models, each chosen for one reason: they work where the obvious approaches fail. Every choice is explained, never assumed.</p>
+    <div class="ml-duo stagger">
+      <div class="ml-card">
+        <div class="mc-algo">Catching the unusual</div>
+        <div class="mc-name">Isolation Forest</div>
+        <div class="mc-why">The simpler anomaly methods need data points to cluster neatly. This data doesn't. Isolation Forest works precisely because it doesn't rely on that. It isolates the odd ones out, no matter how scattered the data is.</div>
+        <div class="mc-result">Result: 60 unusual runs flagged for engineers to review</div>
+      </div>
+      <div class="ml-card">
+        <div class="mc-algo">Grouping the machines</div>
+        <div class="mc-name">K-Means Clustering</div>
+        <div class="mc-why">Instead of guessing which machines need attention, the data decides. Every machine is sorted into Critical, Monitor, or Good based on its real track record. Language an operations team already understands.</div>
+        <div class="mc-result">Result: 2 Critical · 8 Monitor · 10 Good machines</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY THIS DASHBOARD -->
+<section class="ws">
+  <div class="ws-inner">
+    <span class="eyebrow grey sr">Why this dashboard</span>
+    <h2 class="ws-h2 sr">Every choice built to serve<br>the person asking the question.</h2>
+    <p class="ws-sub wide sr">A manager shouldn't need to understand the pipeline to trust the number. These are the questions a quality lead, data architect, or plant manager would ask, each answered by design.</p>
+    <div class="why-grid sr">
+      <div class="why-row">
+        <div class="why-q">How does the dashboard stay accurate when new data arrives?</div>
+        <div class="why-a">It only updates what actually changed. Untouched data is skipped automatically, so the dashboard is always current and never wastes a second reprocessing what it already knows. <strong>Always fresh, never stale.</strong></div>
+        <div class="why-tag">Pipeline</div>
+      </div>
+      <div class="why-row">
+        <div class="why-q">Why do the control limits stay fixed when I change the year?</div>
+        <div class="why-a">Because a fair benchmark can't move every time you change the view. The limits are locked to the full five-year baseline, so every year is judged against the same standard. <strong>One honest yardstick for all.</strong></div>
+        <div class="why-tag">Process control</div>
+      </div>
+      <div class="why-row">
+        <div class="why-q">Why do machine ratings stay the same across years?</div>
+        <div class="why-a">A machine that struggled for four years shouldn't look healthy because of one good one. Ratings reflect the full history, so a real problem can't hide behind a lucky quarter. <strong>The truth, not the highlight reel.</strong></div>
+        <div class="why-tag">Reliability</div>
+      </div>
+      <div class="why-row">
+        <div class="why-q">What happens to the unusual data points?</div>
+        <div class="why-a">They're kept, not deleted. Standard views stay clean for managers, while every flagged anomaly remains on record for engineers who need to dig in. <strong>Clean for some, complete for all.</strong></div>
+        <div class="why-tag">Trust</div>
+      </div>
+      <div class="why-row">
+        <div class="why-q">Why does the chart show one metric at a time?</div>
+        <div class="why-a">Because four lines on one chart is noise, not insight. A single selector lets the analyst ask one clear question and get one clear answer. <strong>Clarity over clutter.</strong></div>
+        <div class="why-tag">Design</div>
+      </div>
+      <div class="why-row">
+        <div class="why-q">How was the data cleaned without losing the real story?</div>
+        <div class="why-a">Only the genuinely impossible values were removed, a tiny fraction. Everything else was recovered or carefully filled using patterns already in the data, so nothing real was thrown away. <strong>Repair before delete.</strong></div>
+        <div class="why-tag">Cleaning</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STACK -->
+<section class="ws alt">
+  <div class="ws-inner">
+    <span class="eyebrow blue sr">Built with</span>
+    <h2 class="ws-h2 sr">The right tool<br>for each layer.</h2>
+    <p class="ws-sub sr">No buzzword stacking. Each technology earns its place, and every choice is documented in the repo.</p>
+    <div class="pills stagger">
+      <div class="pill">Python</div><div class="pill">AWS S3</div><div class="pill">AWS Athena</div>
+      <div class="pill">Power BI</div><div class="pill">Pandas</div><div class="pill">Scikit-learn</div>
+      <div class="pill">PyArrow</div><div class="pill">Boto3</div><div class="pill">DAX</div>
+      <div class="pill">Parquet</div><div class="pill">Medallion Architecture</div>
+      <div class="pill">Statistical Process Control</div><div class="pill">Six Sigma</div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section class="closing">
+  <p class="cl-pre sr">Open to opportunities · Melbourne · Remote</p>
+  <h2 class="cl-h2 sr">Looking for someone who builds things<br><em>that actually work?</em></h2>
+  <p class="cl-sub sr">Data engineer. End-to-end pipeline experience. Every decision documented. Every answer ready.</p>
+  <div class="cl-btns sr">
+    <a href="https://github.com/amankag/manufacturing-quality-dashboard" target="_blank" class="btn-white">View Full Project</a>
+    <a href="https://linkedin.com/in/amankag" target="_blank" class="btn-outline-w">Connect on LinkedIn</a>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Aman Kag &nbsp;·&nbsp;
+    <a href="https://github.com/amankag/manufacturing-quality-dashboard" target="_blank">GitHub</a> &nbsp;·&nbsp;
+    <a href="https://linkedin.com/in/amankag" target="_blank">LinkedIn</a>
+  </p>
+</footer>
+
+
+
+<script type="module" src="globe.js"></script>
+</body>
+</html>
