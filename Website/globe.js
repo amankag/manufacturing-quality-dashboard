@@ -9,8 +9,10 @@ function sz(){return {w:stage.clientWidth,h:stage.clientHeight};}
 renderer.setSize(sz().w,sz().h);
 const scene=new THREE.Scene();
 const camera=new THREE.PerspectiveCamera(38,sz().w/sz().h,0.1,1000);
-camera.position.z=6.2;
-const R=1.0, globeGroup=new THREE.Group(); globeGroup.position.y=-0.95; scene.add(globeGroup);
+const isMobile=window.innerWidth<=768;
+camera.position.z=isMobile?7.4:6.2;
+const globeY=isMobile?-1.35:-0.95;
+const R=1.0, globeGroup=new THREE.Group(); globeGroup.position.y=globeY; scene.add(globeGroup);
 const mgr=new THREE.LoadingManager(); mgr.onLoad=()=>loader.classList.add('hide');
 const tl=new THREE.TextureLoader(mgr);
 const dayTex=tl.load('earth-day.jpg'), nightTex=tl.load('earth-night.jpg');
@@ -27,7 +29,7 @@ const atmMat=new THREE.ShaderMaterial({
   vertexShader:`varying vec3 vN; void main(){ vN=normalize(normalMatrix*normal); gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}`,
   fragmentShader:`varying vec3 vN; void main(){ float i=pow(0.58-dot(vN,vec3(0,0,1.0)),2.8)*0.6; gl_FragColor=vec4(0.0,0.85,0.9,1.0)*i;}`,
   blending:THREE.AdditiveBlending,side:THREE.BackSide,transparent:true});
-  const atm=new THREE.Mesh(new THREE.SphereGeometry(R*1.15,128,128),atmMat); atm.position.y=-0.95; scene.add(atm);
+  const atm=new THREE.Mesh(new THREE.SphereGeometry(R*1.15,128,128),atmMat); atm.position.y=globeY; scene.add(atm);
 const sg=new THREE.BufferGeometry(),sv=[];
 for(let i=0;i<3500;i++){const r=60+Math.random()*200,th=Math.random()*6.28,ph=Math.acos(2*Math.random()-1);
   sv.push(r*Math.sin(ph)*Math.cos(th),r*Math.sin(ph)*Math.sin(th),r*Math.cos(ph));}

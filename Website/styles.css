@@ -207,7 +207,11 @@ footer a:hover { color:var(--blue); }
   .why-row{flex-direction:column;}
   .why-q{width:100%;border-right:none;border-bottom:1px solid var(--border);}
   .why-tag{width:100%;justify-content:flex-start;padding:0 30px 22px;border-left:none;}
-  .globe-stage{height:420px;}
+  .globe-stage{position:absolute;inset:0;height:auto;}
+  .globe-section{min-height:92vh;}
+  .globe-intro{padding:64px 18px 16px;}
+  .gi-title{font-size:clamp(26px,8vw,40px);}
+  .gi-sub{font-size:14px;}
   .nav-links a:not(.nav-gh){display:none;}
 }
 
